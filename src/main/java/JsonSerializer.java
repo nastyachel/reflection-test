@@ -76,33 +76,54 @@ public class JsonSerializer {
         } else if (Collection.class.isAssignableFrom(fieldValue.getClass())) {
             stringValue.append('[');
 
-            Collection collection = Collection.class.cast(fieldValue);
-            Iterator iterator = collection.iterator();
-            for (int i = 0; i < collection.size(); i++) {
-                if (i > 0) {
+            int objectCounter = 0;
+            for(Object object: Collection.class.cast(fieldValue)){
+                if (objectCounter > 0) {
                     stringValue.append(",");
                 }
-                stringValue.append(getStringValue(iterator.next(), null));
+                objectCounter++;
+                stringValue.append(getStringValue(object, null));
             }
             stringValue.append(']');
         } else if (fieldValue instanceof Object[]) {
             stringValue.append('[');
-            Object[] array = (Object[]) fieldValue;
-            for (int i = 0; i < array.length; i++) {
-                if (i > 0) {
+            int objectCounter = 0;
+            for(Object object: (Object[]) fieldValue){
+                if (objectCounter > 0) {
                     stringValue.append(",");
                 }
-                stringValue.append(getStringValue(array[i], null));
+                objectCounter++;
+                stringValue.append(getStringValue(object, null));
             }
             stringValue.append(']');
         } else if (Map.class.isAssignableFrom(fieldValue.getClass())) {
-            // TODO map serialization
+            int objectCounter = 0;
+            for (Object entryObject : Map.class.cast(fieldValue).entrySet())
+            {
+                Map.Entry entry = (Map.Entry) entryObject;
+                if (objectCounter > 0) {
+                    stringValue.append(",");
+                }
+                objectCounter++;
+                stringValue.append(entry.getKey());
+                stringValue.append(":");
+                stringValue.append(getStringValue(entry.getValue(), null));
+            }
+            stringValue.append(']');
+
         } else if (Number.class.isAssignableFrom(fieldValue.getClass())) { // primitives
             stringValue.append(fieldValue.toString());
         } else if (Boolean.class.isAssignableFrom(fieldValue.getClass())) {
             stringValue.append(fieldValue.toString());
         } else if (Date.class.isAssignableFrom(fieldValue.getClass())) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern);
+            if (datePattern != null) {
+                Date date = Date.class.cast(fieldValue);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+                String text = simpleDateFormat.format(date);
+                stringValue.append(text);
+            } else {
+                stringValue.append(fieldValue.toString());
+            }
         } else if (LocalDateTime.class.isAssignableFrom(fieldValue.getClass())) {
             if (datePattern != null) {
                 LocalDateTime date = LocalDateTime.class.cast(fieldValue);
@@ -114,7 +135,6 @@ public class JsonSerializer {
             }
         } else if (LocalDate.class.isAssignableFrom(fieldValue.getClass())) {
             if (datePattern != null) {
-
                 LocalDate date = LocalDate.class.cast(fieldValue);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern);
                 String text = date.format(formatter);
@@ -125,9 +145,7 @@ public class JsonSerializer {
         } else {
             stringValue.append(serialize(fieldValue));
         }
-        // TODO type boolean
         return stringValue.toString();
     }
-
-
+    
 }

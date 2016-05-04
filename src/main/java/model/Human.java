@@ -4,7 +4,9 @@ import annotations.CustomDateFormat;
 import annotations.JsonValue;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by nastya on 24.04.16.
@@ -28,8 +30,8 @@ public class Human {
 
     private String [] сhildren;
 
-    @CustomDateFormat(format = "uuuu-MM-dd")
-    private LocalDate birthDate;
+    @CustomDateFormat(format = "dd-MM-yyyy")
+    private Date birthDate;
 
     public String getFirstName() {
         return firstName;
@@ -95,11 +97,11 @@ public class Human {
         this.сhildren = сhildren;
     }
 
-    public LocalDate getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 }

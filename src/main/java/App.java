@@ -5,8 +5,7 @@ import model.Pet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by nastya on 24.04.16.
@@ -26,9 +25,8 @@ public class App {
         human.setСhildren(children);
         human.setMarried(true);
         human.setPets(pets);
-        LocalDate birthDate = LocalDate.of(1970, 12, 19);
+        Date birthDate = new Date();
         human.setBirthDate(birthDate);
-
         System.out.println(new JsonSerializer().serialize(human));
     }
 
