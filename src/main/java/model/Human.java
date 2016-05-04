@@ -1,3 +1,6 @@
+package model;
+
+import annotations.CustomDateFormat;
 import annotations.JsonValue;
 
 import java.time.LocalDate;
@@ -25,6 +28,7 @@ public class Human {
 
     private String [] сhildren;
 
+    @CustomDateFormat(format = "uuuu-MM-dd")
     private LocalDate birthDate;
 
     public String getFirstName() {
@@ -89,5 +93,13 @@ public class Human {
 
     public void setСhildren(String[] сhildren) {
         this.сhildren = сhildren;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 }
