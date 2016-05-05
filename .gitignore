@@ -1,0 +1,21 @@
+# Build and logs
+target/
+*.log
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# virtual machine crash logs
+hs_err_pid*
+
+# IDEA/Project files
+*.iml
+*.ipr
+*.iws
+.idea/

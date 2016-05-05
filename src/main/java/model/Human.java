@@ -4,6 +4,7 @@ import annotations.CustomDateFormat;
 import annotations.JsonValue;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,25 +14,28 @@ import java.util.Map;
  */
 public class Human {
 
+    private String firstName;
+
+    private String lastName;
+
     private int age;
 
     private double salary;
 
     private boolean isMarried;
 
-    private String firstName;
-
-    private String lastName;
-
     @JsonValue(name = "fun")
     private String hobby;
 
-    private List<Pet> pets;
-
-    private String [] сhildren;
+    private Collection children;
 
     @CustomDateFormat(format = "dd-MM-yyyy")
-    private Date birthDate;
+    private LocalDate birthDate;
+
+    public Human(String name, String lastName){
+        this.firstName = name;
+        this.lastName = lastName;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -55,14 +59,6 @@ public class Human {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public List<Pet> getPets() {
-        return pets;
-    }
-
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
     }
 
     public double getSalary() {
@@ -89,19 +85,19 @@ public class Human {
         isMarried = married;
     }
 
-    public String[] getСhildren() {
-        return сhildren;
+    public Collection getСhildren() {
+        return children;
     }
 
-    public void setСhildren(String[] сhildren) {
-        this.сhildren = сhildren;
+    public void setСhildren(Collection сhildren) {
+        this.children = сhildren;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 }
